@@ -12,7 +12,8 @@ int main(void)
 	str.push_back(1);
 
 	Diagram2* d=new Diagram2(str,true);
-	d->processR(1000000);
+	d->init_generalized_processR(0.5);
+	d->generalized_processR(10);
 	print_in_file(d->get_diag_col());
 	
 	delete d;

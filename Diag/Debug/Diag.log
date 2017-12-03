@@ -1,11 +1,6 @@
-﻿  Diagram2.cpp
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(41): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(61): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(88): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(91): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(117): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(122): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(357): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\diagram2.cpp(363): warning C4018: <: несоответствие типов со знаком и без знака
+﻿  main.cpp
+c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\main.cpp(28): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\main.cpp(36): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\сясит аккеекекгеееч\documents\visual studio 2015\projects\diag\diag\main.cpp(79): warning C4018: <: несоответствие типов со знаком и без знака
   Diag.vcxproj -> C:\Users\сясит аккеекекгеееч\documents\visual studio 2015\Projects\Diag\Debug\Diag.exe
   Diag.vcxproj -> C:\Users\сясит аккеекекгеееч\documents\visual studio 2015\Projects\Diag\Debug\Diag.pdb (Full PDB)

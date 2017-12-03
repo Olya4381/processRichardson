@@ -13,6 +13,8 @@ private:
 	vector<int> corners_y;
 	vector<int> sockets_x;
 	vector<int> sockets_y;
+	vector<double> sockets_p;
+	int alpha;
 public:
 	 Diagram2();
 	 Diagram2(vector<int> & s,bool);//на вход подается если тру - вектор строк (x,y,x,y...), если фолсе - столбцов
@@ -22,6 +24,11 @@ public:
 	int insert_element(vector<int> & v, int x);//возвращает индекс числа в векторе для вставки
 	void add_vertex(int x, int y);
 	void processR(int n);
+	double weight_function(int x, int y);
+	int distribution_p();
+	void calculate_p();
+	void init_generalized_processR(double a);
+	void generalized_processR(int n);
 	int get_count();
 	const vector<int>  & get_diag_str();
 	const vector<int>  & get_diag_col();

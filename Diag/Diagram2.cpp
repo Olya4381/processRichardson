@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
+#include <cmath>
 Diagram2::Diagram2() {
 	//диграмма пуста
 	count = 0;
@@ -14,12 +15,74 @@ Diagram2::Diagram2() {
 	angular_complements.push_back(1);
 }
 
+	void Diagram2::generalized_processR(int n)// обощенный процесс Ричардсона
+	{
+		for (int i=0; i < n;i++) {
+			int k = distribution_p();
+			add_vertex(sockets_x[k],sockets_y[k]);
+			if(i % 100000 == 0) {
+				cout << i << "\n";
+			}
+		}
+	}
+	
+	void Diagram2::init_generalized_processR(double a)//вычисление весовой функции без нормировки
+	{
+			alpha=a;
+			calculate_p();
+	}
+	
+	void Diagram2::calculate_p()
+	{
+		if(sockets_p.size()!=NULL)
+		{
+			sockets_p.clear();
+		}
+		for(int i=0; i<sockets_x.size();i++)
+		{
+			sockets_p.push_back(weight_function(sockets_x[i],sockets_y[i]));
+		}
+	}
+	
+	
+	int Diagram2::distribution_p()//вычисление распределения по весу
+	{
+		double weight=0;
+		for(int i=0;i<sockets_p.size();i++)
+		{
+			weight+=sockets_p[i];
+		}
+		
+		//генерим точку
+		double q=double(rand()%10000)/10000;
+		double sum=0;
+		int j = 0;
+		//определение промежутка куда попало
+		for(j=0;j<sockets_p.size();j++)
+		{
+			if(q>sum && q<(sum+sockets_p[j]/weight))
+			{
+				break;
+			}
+			sum+=sockets_p[j] / weight;
+		}
+		return j;
+	}
+	double Diagram2::weight_function(int x, int y)//вычисление весовой функции без нормировки
+	{
+		return pow(double(x*x+y*y),alpha/2.0);
+	}
+
+
+
+
+
 Diagram2::Diagram2(vector<int> & s, bool f) {
 	if (s[0] == 0)
 	{// нам пришла пустая диграмма
 		Diagram2();
 	}
-
+	alpha=0;
 	if (f) //на вход поданы строки
 	{
 		//ищем сумму и множество столбцов
@@ -63,6 +126,7 @@ Diagram2::Diagram2(vector<int> & s, bool f) {
 		}
 	}
 	calculate_value();
+	calculate_p();
 }
 
 void Diagram2::calculate_value() {
@@ -214,6 +278,7 @@ void Diagram2::add_vertex(int x, int y)
 	}
 	count++;
 	recalculate(x,y);
+	calculate_p();
 }
 
 void Diagram2::processR(int n=1) {
