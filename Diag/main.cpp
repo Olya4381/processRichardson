@@ -7,15 +7,33 @@ void print_inf(Diagram2 * d);
 void print_in_file(const vector<int> & vec, char* file_name=NULL);
 int main(void)
 {
+	
 	std::vector<int> str;
-	str.push_back(1);
 	str.push_back(1);
 
 	Diagram2* d=new Diagram2(str,true);
-	d->init_generalized_processR(0.5);
-	d->generalized_processR(10);
-	print_in_file(d->get_diag_col());
+	//d->init_generalized_processR(0.5);
+	//d->generalized_processR(100000);
+	//print_in_file(d->get_diag_col());
 	
+	//для альфа==0.5
+	ofstream fout;
+	fout.open("alpha.txt");
+	if (!fout.is_open()) {
+		std::cout << "Error: file don't open\n";
+	}
+
+	for (double a = 0; a <= 1.0; a += 0.05)
+	{
+		std::cout << a << "\n";
+		d->init_generalized_processR(a);
+		d->generalized_processR(10000);
+
+		fout << a << "\t" << d->calculate_std_deviation() << "\n";
+		//print_in_file(d->get_diag_col());
+		d->clear_diag();
+	}
+	fout.close();
 	delete d;
 	return 0;
 }

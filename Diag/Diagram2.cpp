@@ -6,13 +6,15 @@
 #include <cmath>
 Diagram2::Diagram2() {
 	//диграмма пуста
-	count = 0;
-	str.push_back(0);
-	col.push_back(0);
+	count = 1;
+	str.push_back(1);
+	col.push_back(1);
+	calculate_value();
 	// 0 угловых точек, 1 угловое дополнение
-	angular_points.push_back(0);
-	angular_complements.push_back(1);
-	angular_complements.push_back(1);
+	//angular_points.push_back(1);
+	//angular_points.push_back(1);
+	//angular_complements.push_back(1);
+	//angular_complements.push_back(1);
 }
 
 	void Diagram2::generalized_processR(int n)// обощенный процесс Ричардсона
@@ -20,9 +22,9 @@ Diagram2::Diagram2() {
 		for (int i=0; i < n;i++) {
 			int k = distribution_p();
 			add_vertex(sockets_x[k],sockets_y[k]);
-			if(i % 100000 == 0) {
-				cout << i << "\n";
-			}
+			//if(i % 10000 == 0) {
+			//	cout << i << "\n";
+			//}
 		}
 	}
 	
@@ -44,7 +46,6 @@ Diagram2::Diagram2() {
 		}
 	}
 	
-	
 	int Diagram2::distribution_p()//вычисление распределения по весу
 	{
 		double weight=0;
@@ -60,7 +61,7 @@ Diagram2::Diagram2() {
 		//определение промежутка куда попало
 		for(j=0;j<sockets_p.size();j++)
 		{
-			if(q>sum && q<(sum+sockets_p[j]/weight))
+			if(q>=sum && q<(sum+sockets_p[j]/weight))
 			{
 				break;
 			}
@@ -68,11 +69,85 @@ Diagram2::Diagram2() {
 		}
 		return j;
 	}
+
 	double Diagram2::weight_function(int x, int y)//вычисление весовой функции без нормировки
 	{
-		return pow(double(x*x+y*y),alpha/2.0);
+		return pow(double(x+y),alpha);
 	}
 
+	double Diagram2::func_compare(double x) {
+		//ищем подходящее значение y
+		double eps = 0.0001;
+		while (x < (func_compare_x[last_pos]-eps) && last_pos<LENGTH_FUNC_COMPARE)
+		{
+			last_pos++;
+		}
+		if (last_pos >= LENGTH_FUNC_COMPARE) return 0;
+		return func_compare_y[last_pos];
+	}
+
+	int Diagram2::init_func() {
+		//инициализируем 1000 значений
+
+		func_compare_x = new double[LENGTH_FUNC_COMPARE];
+		func_compare_y = new double[LENGTH_FUNC_COMPARE];
+
+		if (func_compare_x == NULL || func_compare_y==NULL)
+		{
+			std::cout << "Error: new func_compare_x_y";
+			return 0;
+		}
+		else
+		{
+			double xx;
+			double yy;
+			double j=-1;
+			double step =(double) LENGTH_FUNC_COMPARE;
+			for (int i = 0; i < LENGTH_FUNC_COMPARE; i++)//заполняем массив начальными значениями
+			{
+				xx= j;
+				yy = 2 / 3.141526*(xx * asin(xx) + sqrt(1 - xx * xx));
+				func_compare_x[i] = sqrt(2) / 2 * (xx + yy);
+				func_compare_y[i] = sqrt(2) / 2 * (-xx + yy)/0.5;
+				j += 0.5/step;
+			}
+		}
+		last_pos = 0;
+		return 1;
+	}
+	double Diagram2::calculate_std_deviation() {
+		if(func_compare_x == 0)
+		{
+			init_func();
+		}
+		last_pos = 0;
+
+		double S = 0;
+		double n = sqrt((double)count);
+		double j = 1;
+		for (int i = 0; i < col.size(); i++)
+		{
+			S += pow(((double)col[i]) / n - func_compare(j / n), 2);
+			j += 1.0;
+		}
+		return sqrt(S / ((double)col.size() - 1.0));
+	}
+	
+
+	void Diagram2::clear_diag()
+	{
+		count = 0;
+		col.clear();
+		str.clear();
+		sockets_x.clear();
+		corners_x.clear();
+		sockets_y.clear();
+		corners_y.clear();
+		count = 1;
+		str.push_back(1);
+		col.push_back(1);
+		calculate_value();
+	}
 
 
 
@@ -222,6 +297,10 @@ void Diagram2::recalculate(int x, int y) {
 	{
 		//поиск позиции
 		int ix1 = insert_element(corners_x, x);
+		if (corners_x.size() == 1 && corners_x[0] > x)
+		{
+			ix1 = 1;
+		}
 		if (ix1 != -1)
 		{
 			corners_x.insert(corners_x.begin() + ix1, x);
@@ -243,12 +322,12 @@ void Diagram2::recalculate(int x, int y) {
 	int ix1 = insert_element(sockets_x, x + 1);
 	int iy1 = insert_element(sockets_y, y + 1);
 	//поиск не даст правильного ответа, если не сможет определить порядок сортировки
-	if (sockets_y.size() == 1 && sockets_y[0] < y)
+	if (sockets_y.size() == 1 && sockets_y[0] < (y+1))
 	{
 		iy1=1;
 	}
 
-	if (sockets_x.size() == 1 && sockets_x[0] > x)
+	if (sockets_x.size() == 1 && sockets_x[0] > (x+1))
 	{
 		ix1 = 1;
 	}
@@ -268,8 +347,7 @@ void Diagram2::add_vertex(int x, int y)
 		str[y - 1]++;
 	}
 
-	if (y == 1)
-	{
+	if (y == 1){
 		col.push_back(1);
 	}
 	else
