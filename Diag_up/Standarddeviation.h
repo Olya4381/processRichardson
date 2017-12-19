@@ -4,7 +4,7 @@
 #include "diagram2.h"
 
 
-#define LENGTH_FUNC 20000
+#define LENGTH_FUNC 2000
 #define EPS 0.001
 class StandardDeviation //класс для подсчета СКО
 {
@@ -16,6 +16,7 @@ private:
 	int init_func1(int count); //функция определяет примермые значения 0..n/sqrt()
 	double func1(double x, int i);
 public:
+	void print_func();
 	double SD_gener_process(class Diagram2 & d);
 	StandardDeviation();
 	~StandardDeviation();

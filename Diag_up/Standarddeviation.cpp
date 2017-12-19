@@ -13,14 +13,12 @@ StandardDeviation::~StandardDeviation()
 }
 
 int StandardDeviation::init_func1(int count) {
-	//знаем  максимум функции sqrt(2);
-	//узначем сколько значений меньше
-
-
 	if (len_f1 != count)
 	{
+		//знаем  максимум функции 2;
+		//узначем сколько значений меньше
 		double sqcount = sqrt(double(count));
-		int n = int(ceil(sqrt(2 * double(count))));
+		int n = int(ceil(2.0 * sqcount))-1;
 		//выделяем память
 		f1 = new double[n];
 		if (f1 == NULL)
@@ -28,11 +26,14 @@ int StandardDeviation::init_func1(int count) {
 			return -1;
 		}
 		else {
-			max_f1 = sqrt(2);
+			//общие переменные
+			max_f1 = 2;
 			len_f1 = n;
 
+			//переменные для вычиления функции
 			double j = -1.0;
 			double del = 0.5 / double(LENGTH_FUNC);
+
 
 			double k = 1;
 			double x;
@@ -40,18 +41,18 @@ int StandardDeviation::init_func1(int count) {
 			for (int i = 0, m = 0; i < LENGTH_FUNC, m<n; i++)
 			{
 				//вычисление x
-				x = sqrt(2) / 2 * (j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
+				x = (j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
 				//попадает ли точка в интерва
-				if (k*sqcount > x1 && k*sqcount < x) {
-					if (abs(k*sqcount - x1) < abs(k*sqcount - x1))
+				if (k/sqcount > x1 && k/sqcount < x) {
+					if (abs(k/sqcount - x1) < abs(k/sqcount - x))
 					{
 						//приминаем значение ч1
 						j -= del;
-						f1[m] = sqrt(2) / 2 * (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
+						f1[m] =  (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
 						j += del;
 					}
 					else {
-						f1[m] = sqrt(2) / 2 * (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
+						f1[m] =  (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
 						//принимаем значение ч
 					}
 					m++;
@@ -68,15 +69,16 @@ int StandardDeviation::init_func1(int count) {
 	return 0;
 }
 double StandardDeviation::func1(double x, int i){
-	if (abs(x- max_f1) < EPS)
+	if (i>=len_f1)
 	{
 		return 0;
 	}
-	return f1[i-1];
+	return f1[i];
 }
 
 double StandardDeviation:: SD_gener_process(class Diagram2 & d)
 {
+	init_func1(d.count);
 	double S = 0;
 	double n = (double)d.col.size();
 	double size = sqrt((double) d.count);
@@ -85,9 +87,19 @@ double StandardDeviation:: SD_gener_process(class Diagram2 & d)
 
 	for (int i = 0; i < in; i++)
 	{
+		double tmp1 = ((double)d.col[i]) / size;
+		double tmp2 = func1(j / size, i);
 		S += pow(((double)d.col[i]) / size - func1(j / size,i), 2);
 		j += 1.0;
 	}
 
 	return sqrt(S / (n - 1));
+}
+void StandardDeviation::print_func()
+{
+	init_func1(101);
+	for (int i = 0; i<len_f1; i++)
+	{
+		std::cout << " " << f1[i];
+	}
 }
