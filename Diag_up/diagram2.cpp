@@ -59,6 +59,43 @@ Diagram2::Diagram2(vector<int> & s, bool f) {
 	}
 	calculate_value();
 }
+
+Diagram2::Diagram2(char * name_file)//добавление диграммы из файла
+{
+	//читаем файл
+	ifstream fin;
+	fin.open(name_file);
+	if (!fin.is_open()) {
+		std::cout << "Error: file don't open\n";
+		return;
+	}
+	//заполняем столбцы
+	int tmp;
+	while (fin >> tmp)
+	{
+		col.push_back(tmp);
+	}
+	//находим строки
+	for (int i = 0; i<col[0]; i++) //s[0] показывает сколько строк
+	{
+		int k = 0;
+		while (col[k] >= i + 1)
+		{
+			k++;
+			if (k == col.size())
+			{
+				break;
+			}
+		}
+		str.push_back(k);
+		count += col[i];
+	}
+	//вычисляем характеристики
+	calculate_value();
+
+	fin.close();
+}
+
 void Diagram2::calculate_value() {
 	if (corners_x.size()!=0){
 		corners_x.clear();

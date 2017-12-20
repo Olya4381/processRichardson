@@ -18,7 +18,7 @@ private:
 public:
 	void print_func();
 	double SD_gener_process(class Diagram2 & d);
-	StandardDeviation();
+	StandardDeviation(int count);
 	~StandardDeviation();
 };
 

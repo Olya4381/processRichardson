@@ -2,8 +2,9 @@
 
 #include <new>
 
-StandardDeviation::StandardDeviation()
+StandardDeviation::StandardDeviation(int count)
 {
+	init_func1(count);
 }
 
 
@@ -78,7 +79,6 @@ double StandardDeviation::func1(double x, int i){
 
 double StandardDeviation:: SD_gener_process(class Diagram2 & d)
 {
-	init_func1(d.count);
 	double S = 0;
 	double n = (double)d.col.size();
 	double size = sqrt((double) d.count);

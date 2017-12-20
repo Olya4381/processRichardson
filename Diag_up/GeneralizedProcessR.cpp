@@ -56,6 +56,7 @@ void GeneralizedProcessR::calculate_p()
 	if (sockets_p.size() != 0)
 	{
 		sockets_p.clear();
+		weight = 0;
 	}
 	for (int i = 0; i<sockets_x.size(); i++)
 	{

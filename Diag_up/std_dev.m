@@ -1,4 +1,3 @@
-std=dlmread('alpha.txt');
-std1=dlmread('alpha1.txt');
-std2=dlmread('alpha3.txt');
-plot(std2(:,1),std2(:,2));
+std=dlmread('alpha_1.txt');
+plot(std(:,1),std(:,2));
+title('График СКР для n=10k');

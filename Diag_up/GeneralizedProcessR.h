@@ -26,6 +26,7 @@ public:
 	void ptint_w() { std::cout << "w: " << weight << '\n'; };
 	GeneralizedProcessR() :Diagram2() {};
 	GeneralizedProcessR(vector<int> & s, bool f) : Diagram2(s, f) {};
+	GeneralizedProcessR(char * name_file) : Diagram2(name_file) {}//добавление диграммы из файла (столюцы)
 	~GeneralizedProcessR() {};
 };
 
