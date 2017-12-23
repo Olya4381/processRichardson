@@ -6,9 +6,9 @@ class GeneralizedProcessR :
 	public Diagram2 //класс моделирующий двумерный процесс –ичрдсона
 {
 private:  
-	double alpha;
-	double weight;
-	vector<double> sockets_p;
+	double alpha;//параметр
+	double weight;//общий вес
+	vector<double> sockets_p;//веса
 private:
 	void init_gener_process(double alh);
 	void calculate_p();
@@ -19,9 +19,11 @@ private:
 	void recalculate(int x, int y); //пересчет свойств при добавлении точки // не мен€етс€
  	void add_point_sockets(int x, int y, int i);// вставка в массив угловых допов. позици€ в массив y больше на еденицу
 	void del_points_sockets(int i);//удаление в массив угловых допов. позици€ в массив y больше на еденицу
+	void average_col(GeneralizedProcessR & d);//использует столбец диагрммы дл€ устреднени€
 public:
 	void processR(int n = 1);
 	void generalized_processR(int n, double alh);// обощенный процесс –ичардсона
+	void generalized_processR(int n, double alh, int average);//общенный процесс ричардсна с усреднением
 	void print_p();
 	void ptint_w() { std::cout << "w: " << weight << '\n'; };
 	GeneralizedProcessR() :Diagram2() {};

@@ -4,10 +4,7 @@
 void GeneralizedProcessR::processR(int n) {
 	for (int i = 0; i < n; i++) {
 		int k = rand() % (sockets_x.size());
-		///std::cout << "Add point: (" << sockets_x[k]  << " , "<< sockets_y[k] << ")\n";
 		Diagram2::add_vertex(sockets_x[k], sockets_y[k]);
-		//print_diag_col();
-		//print_picture();
 		if (i % 10000 == 0) {
 			std::cout << i << "\n";
 		}
@@ -17,22 +14,16 @@ void GeneralizedProcessR::processR(int n) {
 
 void GeneralizedProcessR::generalized_processR(int n, double alh)// обощенный процесс Ричардсона
 {
-	//random_device rd;   // non-deterministic generator  
-	//mt19937 gen(rd());  // to seed mersenne twister.  
-	//uniform_int_distribution<> dist(0, 1000000); // distribute results between 1 and 6 inclusive.
+	random_device rd;   // non-deterministic generator  
+	mt19937 gen(rd());  // to seed mersenne twister.  
+	uniform_int_distribution<> dist(0, 100000); // distribute results between 1 and 6 inclusive.
 	init_gener_process(alh);
 	for (int i = 0; i < n; i++) {
-		//int k = distribution_p(dist(gen));
-		int k = distribution_p(rand()%32767);
-		//std::cout << k << "\n";
+		int k = distribution_p(dist(gen));
 		GeneralizedProcessR::add_vertex(sockets_x[k], sockets_y[k]);
-		///print_sockets();
-		//print_diag_col();
-		//print_diag_str();
-		//print_picture();
-		if(i % 100000 == 0) {
-			cout << i << "\n";
-		}
+		//if(i % 100000 == 0) {
+		//	cout << i << "\n";
+		//}
 	}
 }
 
@@ -72,7 +63,7 @@ double GeneralizedProcessR::weight_function(int x, int y) {
 int GeneralizedProcessR::distribution_p(int rn){
 	//генерим точку
 	//std::cout << rn << "\n";
-	double q = double(rn) / 32767.0;
+	double q = double(rn) / 100000.0;
 	double sum = 0;
 	int j = 0;
 	//определение промежутка куда попало
@@ -167,4 +158,37 @@ void GeneralizedProcessR::add_vertex(int x, int y)
 	}
 	count++;
 	recalculate(x, y);
+}
+
+//для усреднения
+void GeneralizedProcessR::average_col(GeneralizedProcessR & d)
+{
+	int i = 0;
+	for ( i = 0; i < d.col.size() && i<col.size(); i++)
+	{
+		col[i] += d.col[i];
+	}
+	for (i; i < d.col.size(); i++)
+	{
+		col.push_back(d.col[i]);
+	}
+}
+
+void GeneralizedProcessR::generalized_processR(int n, double alh, int average)
+{
+	GeneralizedProcessR * d = new GeneralizedProcessR();
+	for (int i = 0; i < average; i++)
+	{
+		d->generalized_processR(n, alh);
+		average_col(*d);
+		d->clear();
+	}
+	//деление на средние
+	count = 0;
+	for (int i = 0; i < col.size(); i++)
+	{
+		col[i] /= average;
+		count += col[i];
+	}
+	delete d;
 }
