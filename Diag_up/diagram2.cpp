@@ -346,6 +346,32 @@ void Diagram2::print_in_file_col(char * file_name)
 	std::cout << "Write in file" << "done\n";
 
 }
+
+void Diagram2::print_in_file_col(string & file_name)
+{
+	/*if (file_name.empty())
+	{
+		std::cout << "Error: file is NULL";
+		return;
+	}*/
+	ofstream fout;
+	fout.open(file_name);
+
+	/*if (!fout.is_open()) {
+		std::cout << "Error: file can't open\n";
+		return;
+	}*/
+
+	for (int i = 0; i < col.size(); i++)
+	{
+		fout << col[i] << " ";
+	}
+	fout.close();
+	//std::cout << "Write in file" << "done\n";
+
+}
+
+
 //вывод на экранн данных
 void Diagram2::print_count() {
 	std::cout << "Size: " << count << '\n';

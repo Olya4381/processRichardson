@@ -2,6 +2,7 @@
 #include <vector>
 #include "Standarddeviation.h"
 #include "Diagram3.h"
+#include <string>
 using namespace std;
 class Diagram2 //класс двумерной диаграммы Юнга
 {
@@ -34,6 +35,7 @@ protected:
 public://вывод всякий штуки
 	void clear();
 	void print_in_file_col(char * file_name="out.txt");
+	void print_in_file_col(string & file_name );
 	void print_count();
 	void print_diag_str();
 	void print_diag_col();
