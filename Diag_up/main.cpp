@@ -19,7 +19,7 @@ int main(void)
 		std::cout << "Error: file don't open\n";
 	}
 
-	for (double a = -0.6; a <= -0.2; a += 0.015)
+	for (double a = (-0.54+0.015); a <= -0.2; a += 0.015)
 	{
 		std::cout << a << "\n";
 		d->generalized_processR(count,a,100);
