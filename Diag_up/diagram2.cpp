@@ -51,7 +51,7 @@ Diagram2::Diagram2(vector<int> & s, bool f) {
 				}
 			}
 			str.push_back(k);
-			count += s[i];
+			count += k;
 		}
 		for (int i = 0; i < s.size(); i++) {
 			col.push_back(s[i]);
@@ -63,6 +63,7 @@ Diagram2::Diagram2(vector<int> & s, bool f) {
 Diagram2::Diagram2(char * name_file)//добавление диграммы из файла
 {
 	//читаем файл
+	count = 0;
 	ifstream fin;
 	fin.open(name_file);
 	if (!fin.is_open()) {
@@ -88,13 +89,53 @@ Diagram2::Diagram2(char * name_file)//добавление диграммы из файла
 			}
 		}
 		str.push_back(k);
-		count += col[i];
+		count += k;
 	}
 	//вычисляем характеристики
+
 	calculate_value();
 
 	fin.close();
 }
+
+Diagram2::Diagram2(string & name_file)//добавление диграммы из файла
+{
+	//читаем файл
+	count = 0;
+	ifstream fin;
+	fin.open(name_file);
+	if (!fin.is_open()) {
+		std::cout << "Error: file don't open\n";
+		return;
+	}
+	//заполняем столбцы
+	int tmp;
+	while (fin >> tmp)
+	{
+		col.push_back(tmp);
+	}
+	//находим строки
+	for (int i = 0; i<col[0]; i++) //s[0] показывает сколько строк
+	{
+		int k = 0;
+		while (col[k] >= i + 1)
+		{
+			k++;
+			if (k == col.size())
+			{
+				break;
+			}
+		}
+		str.push_back(k);
+		count += k;
+	}
+
+
+	//вычисляем характеристики
+	calculate_value();
+	fin.close();
+}
+
 
 void Diagram2::calculate_value() {
 	if (corners_x.size()!=0){
@@ -349,25 +390,25 @@ void Diagram2::print_in_file_col(char * file_name)
 
 void Diagram2::print_in_file_col(string & file_name)
 {
-	/*if (file_name.empty())
+	if (file_name.empty())
 	{
 		std::cout << "Error: file is NULL";
 		return;
-	}*/
+	}
 	ofstream fout;
 	fout.open(file_name);
 
-	/*if (!fout.is_open()) {
+	if (!fout.is_open()) {
 		std::cout << "Error: file can't open\n";
 		return;
-	}*/
+	}
 
 	for (int i = 0; i < col.size(); i++)
 	{
 		fout << col[i] << " ";
 	}
 	fout.close();
-	//std::cout << "Write in file" << "done\n";
+	std::cout << "Write in file" << "done\n";
 
 }
 

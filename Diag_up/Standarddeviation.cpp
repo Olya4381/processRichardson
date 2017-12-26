@@ -2,9 +2,11 @@
 
 #include <new>
 
-StandardDeviation::StandardDeviation(int count)
+StandardDeviation::StandardDeviation(int coun)
 {
-	init_func1(count);
+	len_f1 = 0;
+	count = coun;
+	init_func1(coun);
 }
 
 
@@ -13,9 +15,13 @@ StandardDeviation::~StandardDeviation()
 	delete f1;
 }
 
+
 int StandardDeviation::init_func1(int count) {
-	if (len_f1 != count)
+	if (len_f1 != 0)
 	{
+		len_f1 = 0;
+		delete f1;
+	}
 		//знаем  максимум функции 2;
 		//узначем сколько значений меньше
 		double sqcount = sqrt(double(count));
@@ -24,6 +30,7 @@ int StandardDeviation::init_func1(int count) {
 		f1 = new double[n];
 		if (f1 == NULL)
 		{
+			std::cout << "Error: new init_func1\n";
 			return -1;
 		}
 		else {
@@ -66,7 +73,8 @@ int StandardDeviation::init_func1(int count) {
 			}
 
 		}
-	}
+	
+	
 	return 0;
 }
 double StandardDeviation::func1(double x, int i){
@@ -79,6 +87,10 @@ double StandardDeviation::func1(double x, int i){
 
 double StandardDeviation:: SD_gener_process(class Diagram2 & d)
 {
+	if (count != d.count)
+	{
+		init_func1(d.count);
+	}
 	double S = 0;
 	double n = (double)d.col.size();
 	double size = sqrt((double) d.count);

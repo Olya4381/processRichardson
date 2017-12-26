@@ -20,6 +20,7 @@ public:
 	Diagram2();//создает диграмму
 	Diagram2(vector<int> & s, bool f);//добавление существующей диаграмы 0-строки, 1 -столбец
 	Diagram2(char * name_file);//добавление диграммы из файла (столюцы)
+	Diagram2(string & name_file);//добавление диграммы из файла (столюцы)
 	~Diagram2() {}
 protected:
 	void calculate_value();

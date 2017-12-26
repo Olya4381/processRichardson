@@ -9,6 +9,7 @@
 class StandardDeviation //класс для подсчета СКО
 {
 private:
+	int count;
 	double *f1;
 	double max_f1;
 	int len_f1;

@@ -7,12 +7,18 @@ x1=x+y;
 y1=-x+y;
 %нормируем площадь
 
-col=dlmread('col-0.37.txt');
+col=dlmread('col10x100_-0.420000.txt');
 cx=1:length(col);
 cx=cx/sqrt(sum(col));
 cy=col/sqrt(sum(col));
 
-plot(x1,y1,cx,cy);
+col=dlmread('col10x100_-0.375000.txt');
+cx1=1:length(col);
+cx1=cx1/sqrt(sum(col));
+cy1=col/sqrt(sum(col));
+
+
+plot(x1,y1,cx,cy,cx1,cy1);
 legend('функция','диграмма');
 grid on
 
