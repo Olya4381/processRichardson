@@ -150,6 +150,7 @@
     <ClCompile Include="Diagram3.cpp" />
     <ClCompile Include="GeneralizedProcessR.cpp" />
     <ClCompile Include="GeneralizedProcessR3.cpp" />
+    <ClCompile Include="GeneralizedProcessR_Averaged.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Standarddeviation.cpp" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="Diagram3.h" />
     <ClInclude Include="GeneralizedProcessR.h" />
     <ClInclude Include="GeneralizedProcessR3.h" />
+    <ClInclude Include="GeneralizedProcessR_Averaged.h" />
     <ClInclude Include="Standarddeviation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

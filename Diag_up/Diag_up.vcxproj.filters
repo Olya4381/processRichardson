@@ -33,6 +33,9 @@
     <ClCompile Include="GeneralizedProcessR3.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="GeneralizedProcessR_Averaged.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="diagram2.h">
@@ -48,6 +51,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="GeneralizedProcessR3.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralizedProcessR_Averaged.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

@@ -161,20 +161,20 @@ void GeneralizedProcessR::add_vertex(int x, int y)
 }
 
 //для усреднения
-void GeneralizedProcessR::average_col(GeneralizedProcessR & d)
+/*void GeneralizedProcessR::average_col(GeneralizedProcessR & d)
 {
 	int i = 0;
 	for ( i = 0; i < d.col.size() && i<col.size(); i++)
 	{
 		col[i] += d.col[i];
 	}
-	for (i; i < d.col.size(); i++)
+	for (; i < d.col.size(); i++)
 	{
 		col.push_back(d.col[i]);
 	}
 }
 
-void GeneralizedProcessR::generalized_processR(int n, double alh, int average)
+//void GeneralizedProcessR::generalized_processR(int n, double alh, int average)
 {
 	GeneralizedProcessR * d = new GeneralizedProcessR();
 	for (int i = 0; i < average; i++)
@@ -191,4 +191,4 @@ void GeneralizedProcessR::generalized_processR(int n, double alh, int average)
 		count += col[i];
 	}
 	delete d;
-}
+}*/

@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iostream>
 #include "diagram2.h"
+#include "GeneralizedProcessR_Averaged.h"
 
 
 #define LENGTH_FUNC 2000
@@ -14,11 +15,13 @@ private:
 	double max_f1;
 	int len_f1;
 private:
+	int init_func1(double count);
 	int init_func1(int count); //функция определяет примермые значения 0..n/sqrt()
 	double func1(double x, int i);
 public:
 	void print_func();
 	double SD_gener_process(class Diagram2 & d);
+	double SD_gener_process(class GeneralizedProcessR_Averaged & d);
 	StandardDeviation(int count);
 	~StandardDeviation();
 };
