@@ -1,15 +1,16 @@
-#include "GeneralizedProcessR.h"
-#include "Standarddeviation.h"
+//#include "GeneralizedProcessR.h"
+//#include "Standarddeviation.h"
 #include "GeneralizedProcessR_Averaged.h"
-#include "diagram2.h"
+//#include "diagram2.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 
 void pr_r_for_in();
+void pr_r();
 int main(void)
 {
-	pr_r_for_in();
+	pr_r();
 	return 0;
 }
 
@@ -17,13 +18,12 @@ int main(void)
 void pr_r()
 {
 	int count = 10000;
-	GeneralizedProcessR * d = new GeneralizedProcessR();
+	GeneralizedProcessR_Averaged * d = new GeneralizedProcessR_Averaged();
 	StandardDeviation* s = new StandardDeviation(count + 1);
 
-	d->generalized_processR(count,-0.37);
-	d->print_in_file_col("col_037_aver1.txt");
+	d->generalized_processR_aver(count,-0.37,50);
+	d->print_in_file_col("col_037_TEST1.txt");
 	std::cout << "_" << s->SD_gener_process(*d);
-	d->print_picture();
 	delete d;
 	delete s;
 }
@@ -34,7 +34,7 @@ void pr_r_for()
 	int count = 10000;
 	GeneralizedProcessR_Averaged * d = new GeneralizedProcessR_Averaged();
 	StandardDeviation* s = new StandardDeviation(count + 1);
-	string tr = "col10x100_";
+	string tr = "file\\col10x100_double_";
 	string  en = ".txt";
 
 	ofstream fout;
@@ -44,7 +44,7 @@ void pr_r_for()
 	}
 
 
-	for (double a = -0.6; a <= -0.2; a += 0.015)
+	for (double a = -1; a <= 1; a += 0.015)
 	{
 		std::cout << a << "\n";
 		d->generalized_processR_aver(count,a,100);

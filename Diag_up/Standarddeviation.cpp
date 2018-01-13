@@ -1,5 +1,5 @@
 #include "Standarddeviation.h"
-#include <cmath.h>
+#include <cmath>
 #include <new>
 
 StandardDeviation::StandardDeviation(int coun)
@@ -74,7 +74,7 @@ int StandardDeviation::init_func1(int count) {
 
 		}
 	
-	
+		this->count = count;
 	return 0;
 }
 
@@ -135,7 +135,7 @@ int StandardDeviation::init_func1(double count) {
 		}
 
 	}
-
+	this->count1 = count;
 	return 0;
 }
 
@@ -173,7 +173,7 @@ double StandardDeviation:: SD_gener_process(class Diagram2 & d)
 
 double StandardDeviation::SD_gener_process(class GeneralizedProcessR_Averaged & d)
 {
-	if (count != d.count)
+	if (count1 != d.count)
 	{
 		init_func1(d.count);
 	}

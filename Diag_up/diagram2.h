@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Standarddeviation.h"
+//#include "GeneralizedProcessR_Averaged.h"
 #include "Diagram3.h"
 #include <string>
 using namespace std;
@@ -35,8 +36,8 @@ protected:
 
 public://вывод всякий штуки
 	void clear();
-	void print_in_file_col(char * file_name="out.txt");
-	void print_in_file_col(string & file_name );
+	void print_in_file_col(char * file_name = "out.txt");
+	void print_in_file_col(string & file_name);
 	void print_count();
 	void print_diag_str();
 	void print_diag_col();

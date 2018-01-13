@@ -1,10 +1,10 @@
 #pragma once
 #include "diagram2.h"
-#include "GeneralizedProcessR_Averaged.h"
+//#include "GeneralizedProcessR_Averaged.h"
 #include <iostream>
-
-class GeneralizedProcessR :
-	public Diagram2 //класс моделирующий двумерный процесс Ричрдсона
+using namespace std;
+class GeneralizedProcessR : 
+	public Diagram2//класс моделирующий двумерный процесс Ричрдсона
 {
 private:  
 	double alpha;//параметр
