@@ -1,6 +1,8 @@
 #include "GeneralizedProcessR.h"
 #include <iostream>
 #include <random>
+#include <ctime>
+#include <cstdlib>
 void GeneralizedProcessR::processR(int n) {
 	for (int i = 0; i < n; i++) {
 		int k = rand() % (sockets_x.size());
@@ -18,12 +20,20 @@ void GeneralizedProcessR::generalized_processR(int n, double alh)// обощенный пр
 	mt19937 gen(rd());  // to seed mersenne twister.  
 	uniform_int_distribution<> dist(0, 100000); // distribute results between 1 and 6 inclusive.
 	init_gener_process(alh);
+
+	//введем подсчет времени
+	unsigned int start_time = clock(); // начальное время
+	unsigned int end_time = 0; // конечное время
+
 	for (int i = 0; i < n; i++) {
 		int k = distribution_p(dist(gen));
 		GeneralizedProcessR::add_vertex(sockets_x[k], sockets_y[k]);
-		//if(i % 100000 == 0) {
-		//	cout << i << "\n";
-		//}
+		if(i % 100000 == 0 && i!=0) {
+			//cout << i << "\n";
+			end_time = clock();
+			std::cout << i << '\t'<< (end_time - start_time) / 1000 << '.' << (end_time - start_time) % 1000 << '\n';
+			start_time = end_time;
+		}
 	}
 }
 
@@ -161,7 +171,7 @@ void GeneralizedProcessR::add_vertex(int x, int y)
 }
 
 //для усреднения
-/*void GeneralizedProcessR::average_col(GeneralizedProcessR & d)
+void GeneralizedProcessR::average_col(GeneralizedProcessR & d)
 {
 	int i = 0;
 	for ( i = 0; i < d.col.size() && i<col.size(); i++)
@@ -174,7 +184,7 @@ void GeneralizedProcessR::add_vertex(int x, int y)
 	}
 }
 
-//void GeneralizedProcessR::generalized_processR(int n, double alh, int average)
+void GeneralizedProcessR::generalized_processR(int n, double alh, int average)
 {
 	GeneralizedProcessR * d = new GeneralizedProcessR();
 	for (int i = 0; i < average; i++)
@@ -190,5 +200,18 @@ void GeneralizedProcessR::add_vertex(int x, int y)
 		col[i] /= average;
 		count += col[i];
 	}
+	//удаление 0
+	for (int i = col.size()-1; i >=0; i--)
+	{
+		if (col[i] == 0)
+		{
+			col.pop_back();
+		}
+		else
+		{
+			break;
+		}
+		
+	}
 	delete d;
-}*/
+}

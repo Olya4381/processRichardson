@@ -1,4 +1,4 @@
-//#include "GeneralizedProcessR.h"
+#include "GeneralizedProcessR.h"
 //#include "Standarddeviation.h"
 #include "GeneralizedProcessR_Averaged.h"
 //#include "diagram2.h"
@@ -6,30 +6,56 @@
 #include <fstream>
 #include <string>
 
-void pr_r_for_in();
-void pr_r();
+void proc(double alpha, int count, char* name_file);
+void aver(double aplha, int count, int aver, char* name_file);
+void proc_aver(double alpha, int count, int aver, char* name_file);
 int main(void)
 {
-	pr_r();
+	//aver(-0.37,10000,50, "col_037_aver_double.txt");
+	proc(-0.37, 2000000, "col_037_2m.txt");
+	//proc_aver(-0.37, 10000, 50, "col_037_aver_int.txt");
 	return 0;
 }
 
 
-void pr_r()
+void aver(double alpha, int count, int aver, char* name_file)
 {
-	int count = 10000;
 	GeneralizedProcessR_Averaged * d = new GeneralizedProcessR_Averaged();
 	StandardDeviation* s = new StandardDeviation(count + 1);
 
-	d->generalized_processR_aver(count,-0.37,50);
-	d->print_in_file_col("col_037_TEST1.txt");
-	std::cout << "_" << s->SD_gener_process(*d);
+	d->generalized_processR_aver(count,alpha,aver);
+	d->print_in_file_col(name_file);
+	//std::cout << "_" << s->SD_gener_process(*d);
 	delete d;
 	delete s;
 }
 
 
-void pr_r_for()
+void proc(double alpha, int count, char* name_file)
+{
+	GeneralizedProcessR * d = new GeneralizedProcessR();
+	StandardDeviation* s = new StandardDeviation(count + 1);
+
+	d->generalized_processR(count, alpha);
+	d->print_in_file_col(name_file);
+	std::cout << "_" << s->SD_gener_process(*d);
+	delete d;
+	delete s;
+}
+
+void proc_aver(double alpha, int count, int aver, char* name_file)
+{
+	GeneralizedProcessR * d = new GeneralizedProcessR();
+	StandardDeviation* s = new StandardDeviation(count + 1);
+
+	d->generalized_processR(count, alpha, aver);
+	d->print_in_file_col(name_file);
+	std::cout << "_" << s->SD_gener_process(*d);
+	delete d;
+	delete s;
+}
+
+void alpha_aver()
 {
 	int count = 10000;
 	GeneralizedProcessR_Averaged * d = new GeneralizedProcessR_Averaged();
@@ -59,7 +85,7 @@ void pr_r_for()
 }
 
 
-void pr_r_for_in()
+void std_dlya_filov()
 {
 	int count = 10000;
 

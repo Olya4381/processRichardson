@@ -16,10 +16,8 @@ void GeneralizedProcessR_Averaged::average_col() {
 }//использует столбец диагрммы для устреднения
 void GeneralizedProcessR_Averaged::generalized_processR_aver(int n, double alh, int average) {
 	GeneralizedProcessR * d = new GeneralizedProcessR();
-	std::cout << '1\n';
 	for (int i = 0; i < average; i++)
 	{
-		std::cout << i << '\n';
 		d->generalized_processR(n, alh);
 		//average_col();
 		int k = 0;
@@ -29,11 +27,11 @@ void GeneralizedProcessR_Averaged::generalized_processR_aver(int n, double alh, 
 		}
 		for (; k < d->col.size(); k++)
 		{
-			col.push_back((double)d->col[i]);
+			col.push_back((double)d->col[k]);
 		}
 		d->clear();
 	}
-	//деление на средние
+	//деление на среднее
 	count = 0;
 	for (int i = 0; i < col.size(); i++)
 	{
