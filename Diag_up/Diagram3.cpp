@@ -50,6 +50,7 @@ void Diagram3::calculate_sockets() {
 			}
 			//если x нашелся
 
+
 			if (com_x[k] == tmp_x)
 			{
 				//сравниваем y

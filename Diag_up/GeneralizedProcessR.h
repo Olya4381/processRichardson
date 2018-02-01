@@ -12,9 +12,9 @@ private:
 	vector<double> sockets_p;//веса
 private:
 	void init_gener_process(double alh);
-	void calculate_p();
-	double weight_function(int x, int y);
-	int distribution_p(int rn);
+	void calculate_p();//вычисляет первоначальное значение весов
+	double weight_function(int x, int y);//функция вычисляющая веса
+	int distribution_p(int rn); //распределение задаваемое массивом весов
 	//переопределяемые методы
 	void add_vertex(int x, int y);//не меняется
 	void recalculate(int x, int y); //пересчет свойств при добавлении точки // не меняется

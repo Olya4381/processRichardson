@@ -5,15 +5,22 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <map>
 
 void proc(double alpha, int count, char* name_file);
+void alpha_aver();
 void aver(double aplha, int count, int aver, char* name_file);
 void proc_aver(double alpha, int count, int aver, char* name_file);
 int main(void)
 {
+	std::map<std::pair<int, int>, int> myMap;
+
+	myMap[std::make_pair(10, 20)] = 25;
+	std::cout << myMap[std::make_pair(10, 20)] << std::endl;
 	//aver(-0.37,10000,50, "col_037_aver_double.txt");
-	proc(-0.37, 2000000, "col_037_2m.txt");
+	//proc(-0.37, 2000000, "col_037_2m.txt");
 	//proc_aver(-0.37, 10000, 50, "col_037_aver_int.txt");
+	//alpha_aver();
 	return 0;
 }
 
@@ -57,23 +64,23 @@ void proc_aver(double alpha, int count, int aver, char* name_file)
 
 void alpha_aver()
 {
-	int count = 10000;
+	int count = 100000;
 	GeneralizedProcessR_Averaged * d = new GeneralizedProcessR_Averaged();
 	StandardDeviation* s = new StandardDeviation(count + 1);
-	string tr = "file\\col10x100_double_";
+	string tr = "file\\col100x20_double_";
 	string  en = ".txt";
 
 	ofstream fout;
-	fout.open("alpha_10x100_1.txt");
+	fout.open("alpha_100x20_1.txt");
 	if (!fout.is_open()) {
 		std::cout << "Error: file don't open\n";
 	}
 
 
-	for (double a = -1; a <= 1; a += 0.015)
+	for (double a = -0.6; a <= -0.2; a += 0.015)
 	{
 		std::cout << a << "\n";
-		d->generalized_processR_aver(count,a,100);
+		d->generalized_processR_aver(count,a,20);
 		d->print_in_file_col(tr+std::to_string(a)+en);
 		fout << a << "\t" << s->SD_gener_process(*d) << "\n";
 		d->clear();

@@ -26,13 +26,17 @@ public:
 protected:
 	void calculate_value();
 	void add_vertex(int x, int y);//добавление
+	void add_vertex(int x, int y,vector<int> & add_sock,vector<int> & del_sock );//добавление вершины с записью удаленных и добавленных угловых дополнений
 	void recalculate(int x, int y); //пересчет свойств при добавлении точки
+	void recalculate(int x, int y, vector<int> &  add_sock, vector<int> & del_sock); //пересчет свойств при добавлении точки
 	int search_element(vector<int> & v, int x, bool f);//возвращает индекс числа в векторе (отсортированный массив)
 	int insert_element(vector<int> & v, int x, bool f);//возвращает индекс числа в векторе для вставки
 	void add_point_corners(int x, int y, int i); // вставка в массив угловых точек, позиция одинакова
 	void add_point_sockets(int x, int y, int i);// вставка в массив угловых допов. позиция в массив y больше на еденицу
+	void add_point_sockets(int x, int y, int i, vector<int> & add_sock);// вставка в массив угловых допов. позиция в массив y больше на еденицу
 	void del_point_corners(int i);// удаление в массив угловых точек, позиция одинакова
 	void del_points_sockets(int i);//удаление в массив угловых допов. позиция в массив y больше на еденицу
+	void del_points_sockets(int i, vector<int> & del_sock);//удаление в массив угловых допов. позиция в массив y больше на еденицу
 
 public://вывод всякий штуки
 	void clear();

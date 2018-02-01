@@ -350,6 +350,73 @@ void Diagram2::del_points_sockets(int i) {
 	sockets_y.erase(sockets_y.begin() + i + 1);
 }
 
+//функции  с записью действий
+void Diagram2::add_vertex(int x, int y, vector<int> & add_sock, vector<int> & del_sock) {
+	if (x == 1) {
+		str.push_back(1);
+	}
+	else {
+		str[y - 1]++;
+	}
+
+	if (y == 1) {
+		col.push_back(1);
+	}
+	else {
+		col[x - 1]++;
+	}
+	count++;
+	recalculate(x, y,add_sock,del_sock);
+}
+void Diagram2::recalculate(int x, int y, vector<int> &  add_sock, vector<int> & del_sock) {
+	// пересчет угловых точек
+	//удаление точек содержащие данные координаты
+	int ix = search_element(corners_x, x, false);
+	if (ix != -1)
+	{
+		//удаляем угловое дополнения для этой точки
+		del_points_sockets(ix,del_sock);
+		del_point_corners(ix);
+
+	}
+	int iy = search_element(corners_y, y, true);
+	if (iy != -1)
+	{
+		del_points_sockets(iy,del_sock);
+		del_point_corners(iy);
+	}
+
+	//добавление новой угловой точки
+	if (ix == -1 && iy == -1)
+	{
+		//поиск позиции
+		int ix1 = insert_element(corners_x, x, false);
+		add_point_corners(x, y, ix1);
+	}
+	else if (iy != -1)
+	{
+		//делаем вставку по iy
+		add_point_corners(x, y, iy);
+	}
+	else {
+		//делаем вставку по ix
+		add_point_corners(x, y, ix);
+	}
+	// вставляем угловое дополнение
+	int ix1 = insert_element(sockets_x, x + 1, false);
+	//поиск не даст правильного ответа, если не сможет определить порядок сортировки
+	add_point_sockets(x + 1, y + 1, ix1,add_sock);
+}
+void Diagram2::add_point_sockets(int x, int y, int i, vector<int> & add_sock) {
+	add_sock.push_back(x);
+	add_sock.push_back(y);
+	add_point_sockets( x, y,i);
+}
+void Diagram2::del_points_sockets(int i, vector<int> & del_sock) {
+	del_sock.push_back(sockets_x[i]);
+	del_sock.push_back(sockets_y[i + 1]);
+	del_points_sockets(i);
+}
 void Diagram2::clear() {
 	col.clear();
 	str.clear();
