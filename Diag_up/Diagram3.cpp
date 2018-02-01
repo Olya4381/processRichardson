@@ -5,7 +5,7 @@ Diagram3::Diagram3()
 {
 	//создаем диграмму размерности 1
 	level.push_back(new class Diagram2());
-
+	
 	calculate_sockets();
 }
 

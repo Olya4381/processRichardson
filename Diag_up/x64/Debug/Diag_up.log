@@ -1,13 +1,3 @@
 ﻿  main.cpp
-  GeneralizedProcessR3.cpp
-  GeneralizedProcessR.cpp
-c:\users\nosov\documents\visual studio 2015\projects\diag_up_git\diag_up\generalizedprocessr.cpp(204): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  Diagram3.cpp
-c:\users\nosov\documents\visual studio 2015\projects\diag_up_git\diag_up\diagram3.cpp(75): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-  Создание кода...
-  Пропуск... (изменения не обнаружены)
-  diagram2.cpp
-  Standarddeviation.cpp
-  GeneralizedProcessR_Averaged.cpp
   Diag_up.vcxproj -> C:\Users\nosov\Documents\Visual Studio 2015\Projects\Diag_up_git\x64\Debug\Diag_up.exe
   Diag_up.vcxproj -> C:\Users\nosov\Documents\Visual Studio 2015\Projects\Diag_up_git\x64\Debug\Diag_up.pdb (Full PDB)
