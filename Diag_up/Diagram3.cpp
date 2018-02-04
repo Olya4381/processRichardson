@@ -163,6 +163,15 @@ void Diagram3::add_vertex(int x, int y, int z) {
 	//calculate_sockets();
 }
 
+void Diagram3::clear()
+{
+	for (int i = level.size() - 1;i > 0;i--)
+	{
+		delete level[i];
+	}
+	level[0]->clear();
+}
+
 void Diagram3::print_level() {
 	for (int i = 0; i < level.size(); i++)
 	{

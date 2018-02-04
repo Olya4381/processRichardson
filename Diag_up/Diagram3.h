@@ -23,6 +23,7 @@ protected :
 	void del_point_sockets(int x, int y, int z); /*удаление угл точки в мэп*/
 	void calculate_sockets();//подсчет угловых дополнений  в векторе
 public:
+	void clear();
 	void add_vertex(int x, int y, int z);//добавление вершины
 	void print_level();
 	void print_sockets();

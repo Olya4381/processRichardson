@@ -13,7 +13,7 @@ void GeneralizedProcessR3::generalized_processR3(int n, double alh)
 	for (int i = 0; i < n; i++) {
 		std::pair<int, int> p = distribution_p(dist(gen));
 		GeneralizedProcessR3::add_vertex(p.first, p.second, sockets[p].top()*-1);
-		if (i % 100000 == 0 && i != 0) {
+		if (i % 100 == 0 && i != 0) {
 			cout << i << "\n";
 		}
 	}
@@ -70,12 +70,15 @@ void GeneralizedProcessR3::processR(int n) {
 		int k = rand() % (sockets.size());
 		//std::cout << "Add: (" << sockets_x[k] << " , " << sockets_y[k] << " , " << sockets_z[k] << ")\n";
 		//Diagram3::add_vertex(sockets_x[k], sockets_y[k], sockets_z[k]);
-		i = 0;
+		int j = 0;
 		for (auto item : sockets)
 		{
-			if (i == k)
+			if (j == k)
+			{
 				Diagram3::add_vertex(item.first.first, item.first.second, item.second.top()*-1);
-			i++;
+				break;
+			}
+			j++;
 		}
 		//print_level();
 		//if (i % 100000 == 0) {
@@ -88,24 +91,31 @@ void GeneralizedProcessR3::processR(int n) {
 
 void GeneralizedProcessR3::add_point_sockets1(int x, int y, int z)
 {
-	sockets_p[std::make_pair(x,y)] = weight_function(x, y, z);
 	Diagram3::add_point_sockets1(x, y, z);
+	if (sockets[std::make_pair(x, y)].top() == z*-1)
+	{
+		sockets_p[std::make_pair(x, y)] = weight_function(x, y, z);
+		weight += sockets_p[std::make_pair(x, y)];
+	}
+
 }
 
 void GeneralizedProcessR3::del_point_sockets(int x, int y, int z)
 {
 	if (sockets[std::make_pair(x, y)].top() == z*-1) //требуемая точка находить на вершине очереди
 	{
+		weight -= sockets_p[std::make_pair(x, y)];//
 		sockets[std::make_pair(x, y)].pop();
 		if (sockets[std::make_pair(x, y)].empty()) //если очередь пуста
 		{
 			sockets.erase(std::make_pair(x, y));
-			sockets_p.erase(std::make_pair(x, y));
+			sockets_p.erase(std::make_pair(x, y));//
 			
 		}
 		else// иначе перевычисляем вероятность
 		{
 			sockets_p[std::make_pair(x, y)] = weight_function(x, y, sockets[std::make_pair(x, y)].top()*-1);
+			weight += sockets_p[std::make_pair(x, y)];
 		}
 	}else//если не находиться
 	{
