@@ -6,9 +6,9 @@ Diagram3::Diagram3()
 	//создаем диграмму размерности 1
 	level.push_back(new class Diagram2());
 	
-	calculate_sockets();
+	//calculate_sockets();
+	init_sockets();
 }
-
 
 Diagram3::~Diagram3()
 {
@@ -16,6 +16,17 @@ Diagram3::~Diagram3()
 	{
 		delete level[i];
 	}
+}
+void Diagram3::init_sockets()
+{
+	for (int i = 0; i < level.size(); i++)
+	{
+		for (int j = 0;j < level[i]->sockets_x.size();j++)
+		{
+			add_point_sockets1(level[i]->sockets_x[j], level[i]->sockets_y[j], i + 1);
+		}
+	}
+	add_point_sockets1(1, 1, level.size()+1);
 }
 
 void Diagram3::calculate_sockets() {
@@ -81,17 +92,76 @@ void Diagram3::add_point_sockets(int x, int y, int z) {
 	sockets_z.push_back(z);
 }
 
+void Diagram3::add_point_sockets1(int x, int y, int z)
+{
+	sockets[std::make_pair(x,y)].push(z*-1);
+}
+
+void Diagram3::del_point_sockets(int x, int y, int z)
+{
+	if (sockets[std::make_pair(x, y)].top() == z*-1) //требуемая точка находить на вершине очереди
+	{
+		sockets[std::make_pair(x, y)].pop();
+		if(sockets[std::make_pair(x, y)].empty())
+		{
+			sockets.erase(std::make_pair(x, y));
+		}
+	}
+	else//если не находиться
+	{
+		int min = sockets[std::make_pair(x, y)].top();//вытаскиваем все до требуемого значения
+		do {
+			sockets[std::make_pair(x, y)].pop();
+		} while (min = sockets[std::make_pair(x, y)].top() > z*-1);
+
+		while (min == z*-1)//заносим все обратно
+		{
+			sockets[std::make_pair(x, y)].push(min);
+			min--;
+		}
+
+	}
+}
+
 void Diagram3::add_vertex(int x, int y, int z) {
 	// вырожденный случай по level
 	if (z > level.size())
 	{
 		level.push_back(new class Diagram2());
+		del_point_sockets(1, 1, z);
+		add_point_sockets1(1, 2, z);
+		add_point_sockets1(2, 1, z);
+		add_point_sockets1(1, 1, z+1);
 	}
 	else
 	{
-		level[z - 1]->add_vertex(x, y);
+		mem_sock.clear();
+
+		level[z - 1]->add_vertex(x, y,mem_sock);
+
+
+		for (auto& item : mem_sock)
+		{
+			if (item.second > 0)
+			{
+				add_point_sockets1(item.first.first, item.first.second, z);
+			}else if(item.second < 0)
+			{
+				del_point_sockets(item.first.first, item.first.second, z);
+			}
+		}
+
+
+		/*for (int i = 0;i < del_sock.size();i += 2)
+		{
+			del_point_sockets(del_sock[i], del_sock[i + 1], z);
+		}
+		for (int i = 0;i < add_sock.size();i += 2)
+		{
+			add_point_sockets1(add_sock[i], add_sock[i + 1], z);
+		}*/
 	}
-	calculate_sockets();
+	//calculate_sockets();
 }
 
 void Diagram3::print_level() {
@@ -103,7 +173,7 @@ void Diagram3::print_level() {
 }
 
 void Diagram3::print_sockets() {
-	std::cout << "sockets:\n";
+    /*std::cout << "sockets vec:\n";
 	for (int i = 0; i < sockets_x.size(); i++)
 	{
 		std::cout << sockets_x[i] << '\t';
@@ -118,5 +188,14 @@ void Diagram3::print_sockets() {
 	{
 		std::cout << sockets_z[i] << '\t';
 	}
+	std::cout << "\n";*/
+
+	std::cout << "sockets map:\n";
+	for (auto& item : sockets)
+	{
+		cout << item.first.first << ' ' << item.first.second << " : " << item.second.top()*-1 << endl; //Вывод ключей и значений
+	}
 	std::cout << "\n";
+
+
 }

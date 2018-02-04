@@ -2,11 +2,11 @@
 //#include "Standarddeviation.h"
 #include "GeneralizedProcessR_Averaged.h"
 //#include "diagram2.h"
+#include "Diagram3.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <map>
-#include <queue>
+
 
 void proc(double alpha, int count, char* name_file);
 void alpha_aver();
@@ -14,22 +14,22 @@ void aver(double aplha, int count, int aver, char* name_file);
 void proc_aver(double alpha, int count, int aver, char* name_file);
 int main(void)
 {
-	std::map<std::pair<int, int>, priority_queue<int>> myMap;
-	//добавление
-	myMap[std::make_pair(10, 10)].push(-10);
-	myMap[std::make_pair(10, 10)].push(5);
-	myMap[std::make_pair(10, 10)].push(0);
-	//myMap[std::make_pair(10, 20)] = 30;
-	//myMap[std::make_pair(10, 30)] = 40;
-	//проверка
-    if (myMap.count(std::make_pair(10, 10)) > 0)
-	{
-		std::cout << myMap[std::make_pair(10, 10)].top();
-	}
-	else
-	{
-		std::cout << "Not\n";
-	}
+	Diagram3 * d = new Diagram3();
+	//d->print_sockets();
+	d->add_vertex(1, 1, 2);
+	//d->print_sockets();
+	d->add_vertex(1, 2, 1);
+	//d->print_sockets();
+	d->add_vertex(1, 1, 3);
+	//d->print_sockets();
+	d->add_vertex(1, 1, 4);
+	//d->print_sockets();
+	d->add_vertex(1, 1, 5);
+	//d->print_sockets();
+	d->add_vertex(2, 1, 1);
+	//d->print_sockets();
+	d->add_vertex(1, 3, 1);
+	d->print_sockets();
 	//std::cout << myMap[std::make_pair(10, 20)] << std::endl;
 	//aver(-0.37,10000,50, "col_037_aver_double.txt");
 	//proc(-0.37, 2000000, "col_037_2m.txt");

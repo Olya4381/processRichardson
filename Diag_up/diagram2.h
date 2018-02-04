@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include "Standarddeviation.h"
-//#include "GeneralizedProcessR_Averaged.h"
 #include "Diagram3.h"
 #include <string>
+#include <map>
 using namespace std;
 class Diagram2 //класс двумерной диаграммы Юнга
 {
@@ -26,17 +26,18 @@ public:
 protected:
 	void calculate_value();
 	void add_vertex(int x, int y);//добавление
-	void add_vertex(int x, int y,vector<int> & add_sock,vector<int> & del_sock );//добавление вершины с записью удаленных и добавленных угловых дополнений
+	void add_vertex(int x, int y,map<std::pair<int,int>,int> & mem_sock);//добавление вершины с записью удаленных и добавленных угловых дополнений
 	void recalculate(int x, int y); //пересчет свойств при добавлении точки
-	void recalculate(int x, int y, vector<int> &  add_sock, vector<int> & del_sock); //пересчет свойств при добавлении точки
+	void recalculate(int x, int y, map<std::pair<int, int>, int>& mem_sock); //пересчет свойств при добавлении точки
 	int search_element(vector<int> & v, int x, bool f);//возвращает индекс числа в векторе (отсортированный массив)
 	int insert_element(vector<int> & v, int x, bool f);//возвращает индекс числа в векторе для вставки
 	void add_point_corners(int x, int y, int i); // вставка в массив угловых точек, позиция одинакова
 	void add_point_sockets(int x, int y, int i);// вставка в массив угловых допов. позиция в массив y больше на еденицу
-	void add_point_sockets(int x, int y, int i, vector<int> & add_sock);// вставка в массив угловых допов. позиция в массив y больше на еденицу
+	void add_point_sockets(int x, int y, int i, map<std::pair<int, int>, int>& mem_sock);// вставка в массив угловых допов. позиция в массив y больше на еденицу
 	void del_point_corners(int i);// удаление в массив угловых точек, позиция одинакова
 	void del_points_sockets(int i);//удаление в массив угловых допов. позиция в массив y больше на еденицу
-	void del_points_sockets(int i, vector<int> & del_sock);//удаление в массив угловых допов. позиция в массив y больше на еденицу
+	void del_points_sockets(int i, map<std::pair<int, int>, int>& mem_sock);//удаление в массив угловых допов. позиция в массив y больше на еденицу
+	void init_map(map<std::pair<int, int>, int> mem_sock,int x,int y);
 
 public://вывод всякий штуки
 	void clear();

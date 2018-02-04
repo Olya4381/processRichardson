@@ -351,7 +351,7 @@ void Diagram2::del_points_sockets(int i) {
 }
 
 //функции  с записью действий
-void Diagram2::add_vertex(int x, int y, vector<int> & add_sock, vector<int> & del_sock) {
+void Diagram2::add_vertex(int x, int y, map<std::pair<int, int>, int> & mem_sock) {
 	if (x == 1) {
 		str.push_back(1);
 	}
@@ -366,23 +366,23 @@ void Diagram2::add_vertex(int x, int y, vector<int> & add_sock, vector<int> & de
 		col[x - 1]++;
 	}
 	count++;
-	recalculate(x, y,add_sock,del_sock);
+	recalculate(x, y,mem_sock);
 }
-void Diagram2::recalculate(int x, int y, vector<int> &  add_sock, vector<int> & del_sock) {
+void Diagram2::recalculate(int x, int y, map<std::pair<int,int>,int>& mem_sock) {
 	// пересчет угловых точек
 	//удаление точек содержащие данные координаты
 	int ix = search_element(corners_x, x, false);
 	if (ix != -1)
 	{
 		//удаляем угловое дополнения для этой точки
-		del_points_sockets(ix,del_sock);
+		del_points_sockets(ix,mem_sock);
 		del_point_corners(ix);
 
 	}
 	int iy = search_element(corners_y, y, true);
 	if (iy != -1)
 	{
-		del_points_sockets(iy,del_sock);
+		del_points_sockets(iy,mem_sock);
 		del_point_corners(iy);
 	}
 
@@ -405,17 +405,41 @@ void Diagram2::recalculate(int x, int y, vector<int> &  add_sock, vector<int> & 
 	// вставляем угловое дополнение
 	int ix1 = insert_element(sockets_x, x + 1, false);
 	//поиск не даст правильного ответа, если не сможет определить порядок сортировки
-	add_point_sockets(x + 1, y + 1, ix1,add_sock);
+	add_point_sockets(x + 1, y + 1, ix1,mem_sock);
 }
-void Diagram2::add_point_sockets(int x, int y, int i, vector<int> & add_sock) {
-	add_sock.push_back(x);
+void Diagram2::add_point_sockets(int x, int y, int i, map<std::pair<int, int>, int> & mem_sock) {
+	//добавление происходит по диагонали
+	//удаляем одну
+	init_map(mem_sock, sockets_x[i], sockets_y[i]);
+	mem_sock[std::make_pair(sockets_x[i], sockets_y[i])] -= 1;
+	add_point_sockets(x, y, i);
+	//добавляем две
+	init_map(mem_sock, sockets_x[i], sockets_y[i]);
+	init_map(mem_sock, sockets_x[i+1], sockets_y[i+1]);
+	mem_sock[std::make_pair(sockets_x[i], sockets_y[i])] += 1;
+	mem_sock[std::make_pair(sockets_x[i+1], sockets_y[i+1])] += 1;
+
+	/*add_sock.push_back(x);
 	add_sock.push_back(y);
-	add_point_sockets( x, y,i);
+	add_point_sockets( x, y,i);*/
 }
-void Diagram2::del_points_sockets(int i, vector<int> & del_sock) {
-	del_sock.push_back(sockets_x[i]);
-	del_sock.push_back(sockets_y[i + 1]);
+void Diagram2::del_points_sockets(int i, map<std::pair<int, int>, int>& mem_sock) {
+	//удаление происходит по диагонали
+	init_map(mem_sock, sockets_x[i], sockets_y[i]);
+	init_map(mem_sock, sockets_x[i + 1], sockets_y[i + 1]);
+	mem_sock[std::make_pair(sockets_x[i], sockets_y[i])] -= 1;
+	mem_sock[std::make_pair(sockets_x[i + 1], sockets_y[i + 1])] -=1;
 	del_points_sockets(i);
+	init_map(mem_sock, sockets_x[i], sockets_y[i]);
+	mem_sock[std::make_pair(sockets_x[i], sockets_y[i])] += 1;
+	/*del_sock.push_back(sockets_x[i]);
+	del_sock.push_back(sockets_y[i + 1]);
+	del_points_sockets(i);*/
+}
+void Diagram2::init_map(map<std::pair<int, int>, int> mem_sock, int x, int y)
+{
+	if (mem_sock.count(std::make_pair(x, y)) == 0)
+		mem_sock[std::make_pair(x, y)] = 0;
 }
 void Diagram2::clear() {
 	col.clear();
