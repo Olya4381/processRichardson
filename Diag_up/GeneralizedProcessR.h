@@ -20,6 +20,7 @@ private:
 	void recalculate(int x, int y); //пересчет свойств при добавлении точки // не меняется
  	void add_point_sockets(int x, int y, int i);// вставка в массив угловых допов. позиция в массив y больше на еденицу
 	void del_points_sockets(int i);//удаление в массив угловых допов. позиция в массив y больше на еденицу
+	//
 	void average_col(GeneralizedProcessR & d);//использует столбец диагрммы для устреднения
 public:
 	friend class GeneralizedProcessR_Averaged;

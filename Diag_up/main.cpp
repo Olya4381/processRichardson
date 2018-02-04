@@ -2,7 +2,8 @@
 //#include "Standarddeviation.h"
 #include "GeneralizedProcessR_Averaged.h"
 //#include "diagram2.h"
-#include "Diagram3.h"
+#include "GeneralizedProcessR3.h"
+//#include "Diagram3.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,22 +15,9 @@ void aver(double aplha, int count, int aver, char* name_file);
 void proc_aver(double alpha, int count, int aver, char* name_file);
 int main(void)
 {
-	Diagram3 * d = new Diagram3();
-	//d->print_sockets();
-	d->add_vertex(1, 1, 2);
-	//d->print_sockets();
-	d->add_vertex(1, 2, 1);
-	//d->print_sockets();
-	d->add_vertex(1, 1, 3);
-	//d->print_sockets();
-	d->add_vertex(1, 1, 4);
-	//d->print_sockets();
-	d->add_vertex(1, 1, 5);
-	//d->print_sockets();
-	d->add_vertex(2, 1, 1);
-	//d->print_sockets();
-	d->add_vertex(1, 3, 1);
-	d->print_sockets();
+	GeneralizedProcessR3 * d = new GeneralizedProcessR3();
+	d->generalized_processR3(1000, 0);
+	d->print_level();
 	//std::cout << myMap[std::make_pair(10, 20)] << std::endl;
 	//aver(-0.37,10000,50, "col_037_aver_double.txt");
 	//proc(-0.37, 2000000, "col_037_2m.txt");

@@ -139,7 +139,6 @@ void Diagram3::add_vertex(int x, int y, int z) {
 
 		level[z - 1]->add_vertex(x, y,mem_sock);
 
-
 		for (auto& item : mem_sock)
 		{
 			if (item.second > 0)

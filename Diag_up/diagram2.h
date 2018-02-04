@@ -25,8 +25,6 @@ public:
 	~Diagram2() {}
 protected:
 	void calculate_value();
-	void add_vertex(int x, int y);//добавление
-	void add_vertex(int x, int y,map<std::pair<int,int>,int> & mem_sock);//добавление вершины с записью удаленных и добавленных угловых дополнений
 	void recalculate(int x, int y); //пересчет свойств при добавлении точки
 	void recalculate(int x, int y, map<std::pair<int, int>, int>& mem_sock); //пересчет свойств при добавлении точки
 	int search_element(vector<int> & v, int x, bool f);//возвращает индекс числа в векторе (отсортированный массив)
@@ -38,7 +36,9 @@ protected:
 	void del_points_sockets(int i);//удаление в массив угловых допов. позиция в массив y больше на еденицу
 	void del_points_sockets(int i, map<std::pair<int, int>, int>& mem_sock);//удаление в массив угловых допов. позиция в массив y больше на еденицу
 	void init_map(map<std::pair<int, int>, int> mem_sock,int x,int y);
-
+public:
+	void add_vertex(int x, int y);//добавление
+	void add_vertex(int x, int y, map<std::pair<int, int>, int> & mem_sock);//добавление вершины с записью удаленных и добавленных угловых дополнений
 public://вывод всякий штуки
 	void clear();
 	void print_in_file_col(char * file_name = "out.txt");
