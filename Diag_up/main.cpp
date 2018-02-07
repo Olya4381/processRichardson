@@ -16,12 +16,11 @@ void proc_aver(double alpha, int count, int aver, char* name_file);
 int main(void)
 {
 	GeneralizedProcessR3 * d = new GeneralizedProcessR3();
-	d->generalized_processR3(500, 0);
-	d->print_level();
-	std::cout << "\n";
-	GeneralizedProcessR3 * d1 = new GeneralizedProcessR3();
-	d1->processR(500);
-	d1->print_level();
+	d->generalized_processR3(10000, 0);
+	//d->print_level();
+	//std::cout << "\n";
+	//d1->print_level();
+	//d1->print_in_file_col("3d.txt");
 	//std::cout << myMap[std::make_pair(10, 20)] << std::endl;
 	//aver(-0.37,10000,50, "col_037_aver_double.txt");
 	//proc(-0.37, 2000000, "col_037_2m.txt");

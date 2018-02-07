@@ -27,6 +27,8 @@ public:
 	void add_vertex(int x, int y, int z);//добавление вершины
 	void print_level();
 	void print_sockets();
+	void print_in_file_col(char * file_name);
+	void print_in_file_col(string & file_name);
 	Diagram3();
 	~Diagram3();
 };

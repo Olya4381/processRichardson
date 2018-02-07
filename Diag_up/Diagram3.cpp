@@ -1,6 +1,6 @@
 #include "Diagram3.h"
 #include <new>
-
+#include <fstream>
 Diagram3::Diagram3()
 {
 	//создаем диграмму размерности 1
@@ -207,3 +207,68 @@ void Diagram3::print_sockets() {
 
 
 }
+
+//запись в файл
+void Diagram3::print_in_file_col(char * file_name)
+{
+	if (file_name == NULL)
+	{
+		std::cout << "Error: file is NULL";
+		return;
+	}
+	ofstream fout;
+	fout.open(file_name);
+
+	if (!fout.is_open()) {
+		std::cout << "Error: file can't open\n";
+		return;
+	}
+
+	for (auto item : level)
+	{
+		for (int i = 0; i < item->col.size(); i++)
+		{
+			fout << item->col[i] << " ";
+		}
+		if (item != level.back())
+		{
+			fout << " , ";
+		}
+	}
+	fout.close();
+	std::cout << "Write in file" << "done\n";
+
+}
+
+void Diagram3::print_in_file_col(string & file_name)
+{
+	if (file_name.empty())
+	{
+		std::cout << "Error: file is NULL";
+		return;
+	}
+
+	ofstream fout;
+	fout.open(file_name);
+
+	if (!fout.is_open()) {
+		std::cout << "Error: file can't open\n";
+		return;
+	}
+
+	for (auto item : level)
+	{
+		for (int i = 0; i < item->col.size(); i++)
+		{
+			fout << item->col[i] << " ";
+		}
+		if (item != level.back())
+		{
+			fout << " , ";
+		}
+	}
+	fout.close();
+	std::cout << "Write in file" << "done\n";
+
+}
+

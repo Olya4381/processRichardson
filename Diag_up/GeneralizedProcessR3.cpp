@@ -3,20 +3,28 @@
 #include <random>
 #include <ctime>
 #include <cstdlib>
+#include <fstream>
+
 void GeneralizedProcessR3::generalized_processR3(int n, double alh)
 {
+
+	//ofstream fout;
+	//fout.open("point3d.txt");
 	////////////////////////////////////////////////
 	random_device rd;   // non-deterministic generator  
 	mt19937 gen(rd());  // to seed mersenne twister.  
 	uniform_int_distribution<> dist(0, 100000); // distribute results between 1 and 6 inclusive.
+
 	init_gener_process(alh);
 	for (int i = 0; i < n; i++) {
 		std::pair<int, int> p = distribution_p(dist(gen));
+		//fout << p.first << " " << p.second << " " << sockets[p].top()*-1 << "\n";
 		GeneralizedProcessR3::add_vertex(p.first, p.second, sockets[p].top()*-1);
 		if (i % 100 == 0 && i != 0) {
 			cout << i << "\n";
 		}
 	}
+	//fout.close();
 }
 
 std::pair<int, int> GeneralizedProcessR3::distribution_p(int rn){
@@ -135,6 +143,8 @@ void GeneralizedProcessR3::del_point_sockets(int x, int y, int z)
 
 void GeneralizedProcessR3::add_vertex(int x, int y, int z) {
 	// вырожденный случай по level
+
+
 	if (z > level.size())
 	{
 		level.push_back(new class Diagram2());
