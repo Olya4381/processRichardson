@@ -3,6 +3,7 @@
 #include <iostream>
 #include "diagram2.h"
 #include "GeneralizedProcessR_Averaged.h"
+#include <cmath>
 
 
 #define LENGTH_FUNC 2000
@@ -19,10 +20,16 @@ private:
 	int init_func1(double count);
 	int init_func1(int count); //функция определяет примермые значения 0..n/sqrt()
 	double func1(double x, int i);
+	//для диграмм
+	double sub_sd_two_diarams2(class Diagram2 & a, class Diagram2 & b);//скр 2д диаграмм без деления на кол-во членов
+	double sub_sd_two_diarams2(class Diagram2 & a);//скр 2д диаграмм без деления на кол-во членов
+	int get_col(class Diagram2 & d, int i);
 public:
 	void print_func();
 	double SD_gener_process(class Diagram2 & d);
 	double SD_gener_process(class GeneralizedProcessR_Averaged & d);
+	//скр двух диагрммм
+	double SD_two_diagrams3d(class Diagram3 & a, class Diagram3 & b);
 	StandardDeviation(int count);
 	~StandardDeviation();
 };

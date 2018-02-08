@@ -202,3 +202,68 @@ void StandardDeviation::print_func()
 		std::cout << " " << f1[i];
 	}
 }
+
+
+double StandardDeviation::SD_two_diagrams3d(class Diagram3 & a, class Diagram3 & b)
+{
+	double sum;
+	int i = 0;
+	int n = 0;
+	for (;i < a.print_level.size() || b.print_level.size();i++)
+	{
+		sum += sub_sd_two_diarams2(*(a.level[i]), *(b.level[i]));
+		a.level[i]->col.size() < b.level[i]->col.size() ? n += b.level[i]->col.size() : n += a.level[i]->col.size();
+	}
+	if (a.level.size() > b.level.size)
+	{
+		for (;i < a.print_level.size() ;i++)
+		{
+			sum += sub_sd_two_diarams2(*(a.level[i]));
+			n += a.level[i]->col.size();
+		}
+	}
+	else {
+		for (;i < b.print_level.size();i++)
+		{
+			sum += sub_sd_two_diarams2(*(b.level[i]));
+			n += b.level[i]->col.size();
+		}
+	}
+	return sum / (double(n) - 1.0);
+}
+
+
+
+double StandardDeviation::sub_sd_two_diarams2(class Diagram2 & a, class Diagram2 & b)
+{
+	int sum;
+	int tmp = 0;
+	for (int i = 0;i < a.col.size() || i < b.col.size();i++)
+	{
+		tmp = get_col(a, i) - get_col(b, i);
+		sum += tmp*tmp;
+	}
+	return double(sum);
+}
+
+double StandardDeviation::sub_sd_two_diarams2( class Diagram2 & a)
+{
+	int sum;
+	int tmp = 0;
+	for (int i = 0;i < a.col.size();i++)
+	{
+		tmp = get_col(a, i);
+		sum += tmp*tmp;
+	}
+	return double(sum);
+}
+
+
+int StandardDeviation::get_col(class Diagram2 & d, int i)
+{
+	if (i < d.col.size())
+	{
+		return d.col[i];
+	}
+	return 0;
+}
