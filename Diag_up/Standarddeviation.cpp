@@ -4,39 +4,39 @@
 
 StandardDeviation::StandardDeviation(int coun)
 {
-	len_f1 = 0;
+	len_Plancherel2d = 0;
 	count = coun;
-	init_func1(coun);
+	init_Plancherel2d(coun);
 }
 
 
 StandardDeviation::~StandardDeviation()
 {
-	delete f1;
+	delete Plancherel2d;
 }
 
 
-int StandardDeviation::init_func1(int count) {
-	if (len_f1 != 0)
+int StandardDeviation::init_Plancherel2d(int count) {
+	if (len_Plancherel2d != 0)
 	{
-		len_f1 = 0;
-		delete f1;
+		len_Plancherel2d = 0;
+		delete Plancherel2d;
 	}
 		//знаем  максимум функции 2;
 		//узначем сколько значений меньше
 		double sqcount = sqrt(double(count));
 		int n = int(ceil(2.0 * sqcount))-1;
 		//выделяем память
-		f1 = new double[n];
-		if (f1 == NULL)
+		Plancherel2d = new double[n];
+		if (Plancherel2d == NULL)
 		{
 			std::cout << "Error: new init_func1\n";
 			return -1;
 		}
 		else {
 			//общие переменные
-			max_f1 = 2;
-			len_f1 = n;
+			max_Plancherel2d = 2;
+			len_Plancherel2d = n;
 
 			//переменные для вычиления функции
 			double j = -1.0;
@@ -56,11 +56,11 @@ int StandardDeviation::init_func1(int count) {
 					{
 						//приминаем значение ч1
 						j -= del;
-						f1[m] =  (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
+						Plancherel2d[m] =  (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
 						j += del;
 					}
 					else {
-						f1[m] =  (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
+						Plancherel2d[m] =  (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
 						//принимаем значение ч
 					}
 					m++;
@@ -78,27 +78,27 @@ int StandardDeviation::init_func1(int count) {
 	return 0;
 }
 
-int StandardDeviation::init_func1(double count) {
-	if (len_f1 != 0)
+int StandardDeviation::init_Plancherel2d(double count) {
+	if (len_Plancherel2d != 0)
 	{
-		len_f1 = 0;
-		delete f1;
+		len_Plancherel2d = 0;
+		delete Plancherel2d;
 	}
 	//знаем  максимум функции 2;
 	//узначем сколько значений меньше
 	double sqcount = sqrt(double(count));
 	int n = int(ceil(2.0 * sqcount)) - 1;
 	//выделяем память
-	f1 = new double[n];
-	if (f1 == NULL)
+	Plancherel2d = new double[n];
+	if (Plancherel2d == NULL)
 	{
 		std::cout << "Error: new init_func1\n";
 		return -1;
 	}
 	else {
 		//общие переменные
-		max_f1 = 2;
-		len_f1 = n;
+		max_Plancherel2d = 2;
+		len_Plancherel2d = n;
 
 		//переменные для вычиления функции
 		double j = -1.0;
@@ -118,11 +118,11 @@ int StandardDeviation::init_func1(double count) {
 				{
 					//приминаем значение ч1
 					j -= del;
-					f1[m] = (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
+					Plancherel2d[m] = (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
 					j += del;
 				}
 				else {
-					f1[m] = (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
+					Plancherel2d[m] = (-j + 2 / 3.141526*(j * asin(j) + sqrt(1 - j * j)));
 					//принимаем значение ч
 				}
 				m++;
@@ -140,19 +140,19 @@ int StandardDeviation::init_func1(double count) {
 }
 
 
-double StandardDeviation::func1(double x, int i){
-	if (i>=len_f1)
+double StandardDeviation::func_Plancherel2d(double x, int i){
+	if (i>=len_Plancherel2d)
 	{
 		return 0;
 	}
-	return f1[i];
+	return Plancherel2d[i];
 }
 
-double StandardDeviation:: SD_gener_process(class Diagram2 & d)
+double StandardDeviation:: SD_Plancherel_2d(class Diagram2 & d)
 {
 	if (count != d.count)
 	{
-		init_func1(d.count);
+		init_Plancherel2d(d.count);
 	}
 	double S = 0;
 	double n = (double)d.col.size();
@@ -163,19 +163,19 @@ double StandardDeviation:: SD_gener_process(class Diagram2 & d)
 	for (int i = 0; i < in; i++)
 	{
 		double tmp1 = (d.col[i]) / size;
-		double tmp2 = func1(j / size, i);
-		S += pow((d.col[i]) / size - func1(j / size,i), 2);
+		double tmp2 = func_Plancherel2d(j / size, i);
+		S += pow((d.col[i]) / size - func_Plancherel2d(j / size,i), 2);
 		j += 1.0;
 	}
 
 	return sqrt(S / (n - 1));
 }
 
-double StandardDeviation::SD_gener_process(class GeneralizedProcessR_Averaged & d)
+double StandardDeviation::SD_Plancherel_2d(class GeneralizedProcessR_Averaged & d)
 {
 	if (count1 != d.count)
 	{
-		init_func1(d.count);
+		init_Plancherel2d(d.count);
 	}
 	double S = 0;
 	double n = (double)d.col.size();
@@ -186,8 +186,51 @@ double StandardDeviation::SD_gener_process(class GeneralizedProcessR_Averaged & 
 	for (int i = 0; i < in; i++)
 	{
 		double tmp1 = ((double)d.col[i]) / size;
-		double tmp2 = func1(j / size, i);
-		S += pow(((double)d.col[i]) / size - func1(j / size, i), 2);
+		double tmp2 = func_Plancherel2d(j / size, i);
+		S += pow(((double)d.col[i]) / size - func_Plancherel2d(j / size, i), 2);
+		j += 1.0;
+	}
+
+	return sqrt(S / (n - 1));
+}
+
+double  StandardDeviation::func_EvenDistr2d(double x)
+{
+	return log(1 - exp(-3.141526 / sqrt(6.0)*x))*-sqrt(6.0) / 3.141526;
+}
+
+double StandardDeviation::SD_EvenDistr_2d(class Diagram2 & d)
+{
+	double S = 0;
+	double n = (double)d.col.size();
+	double size = sqrt(d.count);
+	double j = 1.0;
+	int in = d.col.size();
+
+	for (int i = 0; i < in; i++)
+	{
+		double tmp1 = (d.col[i]) / size;
+		double tmp2 = func_EvenDistr2d(j / size);
+		S += pow((d.col[i]) / size - func_EvenDistr2d(j / size), 2);
+		j += 1.0;
+	}
+
+	return sqrt(S / (n - 1));
+}
+
+double StandardDeviation::SD_EvenDistr_2d(class GeneralizedProcessR_Averaged & d)
+{
+	double S = 0;
+	double n = (double)d.col.size();
+	double size = sqrt((double)d.count);
+	double j = 1.0;
+	int in = d.col.size();
+
+	for (int i = 0; i < in; i++)
+	{
+		double tmp1 = ((double)d.col[i]) / size;
+		double tmp2 = func_EvenDistr2d(j / size);
+		S += pow(((double)d.col[i]) / size - func_EvenDistr2d(j / size), 2);
 		j += 1.0;
 	}
 
@@ -196,34 +239,34 @@ double StandardDeviation::SD_gener_process(class GeneralizedProcessR_Averaged & 
 
 void StandardDeviation::print_func()
 {
-	init_func1(101);
-	for (int i = 0; i<len_f1; i++)
+	init_Plancherel2d(101);
+	for (int i = 0; i<len_Plancherel2d; i++)
 	{
-		std::cout << " " << f1[i];
+		std::cout << " " << Plancherel2d[i];
 	}
 }
 
 
 double StandardDeviation::SD_two_diagrams3d(class Diagram3 & a, class Diagram3 & b)
 {
-	double sum;
+	double sum=0;
 	int i = 0;
 	int n = 0;
-	for (;i < a.print_level.size() || b.print_level.size();i++)
+	for (;i < a.level.size() || i< b.level.size();i++)
 	{
 		sum += sub_sd_two_diarams2(*(a.level[i]), *(b.level[i]));
 		a.level[i]->col.size() < b.level[i]->col.size() ? n += b.level[i]->col.size() : n += a.level[i]->col.size();
 	}
-	if (a.level.size() > b.level.size)
+	if (a.level.size() > b.level.size())
 	{
-		for (;i < a.print_level.size() ;i++)
+		for (;i < a.level.size() ;i++)
 		{
 			sum += sub_sd_two_diarams2(*(a.level[i]));
 			n += a.level[i]->col.size();
 		}
 	}
 	else {
-		for (;i < b.print_level.size();i++)
+		for (;i < b.level.size();i++)
 		{
 			sum += sub_sd_two_diarams2(*(b.level[i]));
 			n += b.level[i]->col.size();
@@ -236,7 +279,7 @@ double StandardDeviation::SD_two_diagrams3d(class Diagram3 & a, class Diagram3 &
 
 double StandardDeviation::sub_sd_two_diarams2(class Diagram2 & a, class Diagram2 & b)
 {
-	int sum;
+	int sum=0;
 	int tmp = 0;
 	for (int i = 0;i < a.col.size() || i < b.col.size();i++)
 	{
@@ -248,7 +291,7 @@ double StandardDeviation::sub_sd_two_diarams2(class Diagram2 & a, class Diagram2
 
 double StandardDeviation::sub_sd_two_diarams2( class Diagram2 & a)
 {
-	int sum;
+	int sum=0;
 	int tmp = 0;
 	for (int i = 0;i < a.col.size();i++)
 	{

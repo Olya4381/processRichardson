@@ -13,21 +13,27 @@ class StandardDeviation //класс для подсчета СКО
 private:
 	int count;
 	double count1;
-	double *f1;
-	double max_f1;
-	int len_f1;
+	double *Plancherel2d;
+	double max_Plancherel2d;
+	int len_Plancherel2d;
 private:
-	int init_func1(double count);
-	int init_func1(int count); //функция определяет примермые значения 0..n/sqrt()
-	double func1(double x, int i);
+	int init_Plancherel2d(double count);//предельная форма планшереля
+	int init_Plancherel2d(int count); //функция определяет примермые значения 0..n/sqrt()
+	double func_Plancherel2d(double x, int i);
+	double func_EvenDistr2d(double x);
 	//для диграмм
 	double sub_sd_two_diarams2(class Diagram2 & a, class Diagram2 & b);//скр 2д диаграмм без деления на кол-во членов
 	double sub_sd_two_diarams2(class Diagram2 & a);//скр 2д диаграмм без деления на кол-во членов
 	int get_col(class Diagram2 & d, int i);
 public:
 	void print_func();
-	double SD_gener_process(class Diagram2 & d);
-	double SD_gener_process(class GeneralizedProcessR_Averaged & d);
+	double SD_Plancherel_2d(class Diagram2 & d);
+	double SD_Plancherel_2d(class GeneralizedProcessR_Averaged & d);
+	double SD_EvenDistr_2d(class Diagram2 & d);
+	double SD_EvenDistr_2d(class GeneralizedProcessR_Averaged & d);
+
+
+
 	//скр двух диагрммм
 	double SD_two_diagrams3d(class Diagram3 & a, class Diagram3 & b);
 	StandardDeviation(int count);

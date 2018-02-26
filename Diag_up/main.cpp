@@ -13,10 +13,13 @@ void proc(double alpha, int count, char* name_file);
 void alpha_aver();
 void aver(double aplha, int count, int aver, char* name_file);
 void proc_aver(double alpha, int count, int aver, char* name_file);
+void std_dlya_filov();
 int main(void)
 {
+	//std_dlya_filov();
 	GeneralizedProcessR3 * d = new GeneralizedProcessR3();
-	d->generalized_processR3(10000, 0);
+	d->generalized_processR3(200000, 0);
+	d->print_in_file_col("col3d_100k_forcheckevevdistr.txt");
 	//d->print_level();
 	//std::cout << "\n";
 	//d1->print_level();
@@ -50,7 +53,7 @@ void proc(double alpha, int count, char* name_file)
 
 	d->generalized_processR(count, alpha);
 	d->print_in_file_col(name_file);
-	std::cout << "_" << s->SD_gener_process(*d);
+	std::cout << "_" << s->SD_Plancherel_2d(*d);
 	delete d;
 	delete s;
 }
@@ -62,7 +65,7 @@ void proc_aver(double alpha, int count, int aver, char* name_file)
 
 	d->generalized_processR(count, alpha, aver);
 	d->print_in_file_col(name_file);
-	std::cout << "_" << s->SD_gener_process(*d);
+	std::cout << "_" << s->SD_Plancherel_2d(*d);
 	delete d;
 	delete s;
 }
@@ -76,7 +79,7 @@ void alpha_aver()
 	string  en = ".txt";
 
 	ofstream fout;
-	fout.open("alpha_100x20_1.txt");
+	fout.open("alpha_even_distr.txt");
 	if (!fout.is_open()) {
 		std::cout << "Error: file don't open\n";
 	}
@@ -87,7 +90,7 @@ void alpha_aver()
 		std::cout << a << "\n";
 		d->generalized_processR_aver(count,a,20);
 		d->print_in_file_col(tr+std::to_string(a)+en);
-		fout << a << "\t" << s->SD_gener_process(*d) << "\n";
+		fout << a << "\t" << s->SD_EvenDistr_2d(*d) << "\n";
 		d->clear();
 	}
 	fout.close();
@@ -108,7 +111,7 @@ void std_dlya_filov()
 	Diagram2 * d;
 
 	ofstream fout;
-	fout.open("alpha_10x100_2.txt");
+	fout.open("alpha_even_distr.txt");
 	if (!fout.is_open()) {
 		std::cout << "Error: file don't open\n";
 	}
@@ -118,7 +121,7 @@ void std_dlya_filov()
 	{
 		std::cout << a << "\n";
 		d = new Diagram2(tr + std::to_string(a) + en);
-		fout << a << "\t" << s->SD_gener_process(*d) << "\n";
+		fout << a << "\t" << s->SD_Plancherel_2d(*d) << "\n";
 		delete d;
 	}
 	fout.close();
