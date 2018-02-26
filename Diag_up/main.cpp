@@ -16,9 +16,10 @@ void proc_aver(double alpha, int count, int aver, char* name_file);
 void std_dlya_filov();
 int main(void)
 {
-	std_dlya_filov();
-	//GeneralizedProcessR3 * d = new GeneralizedProcessR3();
-	//d->generalized_processR3(10000, 0);
+	//std_dlya_filov();
+	GeneralizedProcessR3 * d = new GeneralizedProcessR3();
+	d->generalized_processR3(200000, 0);
+	d->print_in_file_col("col3d_100k_forcheckevevdistr.txt");
 	//d->print_level();
 	//std::cout << "\n";
 	//d1->print_level();

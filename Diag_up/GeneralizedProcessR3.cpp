@@ -20,7 +20,7 @@ void GeneralizedProcessR3::generalized_processR3(int n, double alh)
 		std::pair<int, int> p = distribution_p(dist(gen));
 		//fout << p.first << " " << p.second << " " << sockets[p].top()*-1 << "\n";
 		GeneralizedProcessR3::add_vertex(p.first, p.second, sockets[p].top()*-1);
-		if (i % 100 == 0 && i != 0) {
+		if (i % 100000 == 0 && i != 0) {
 			cout << i << "\n";
 		}
 	}
